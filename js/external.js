@@ -40,7 +40,7 @@ let validSchedule = confirm("Is class conflict with your schedule?");
     }
 //quantity = number(confirm("how  item do you have?);
 //let enoughItems = quantity >= 2;
-//let isNotExpired = confimr("click ok if your offer is not expired);
+//let isNotExpired = confirm("click ok if your offer is not expired);
 //let preMem = confirm("click ok if you are a premium member");
 //let offerValid = (enoughItems && isNotExpired) || preMem;
 //alert("valid discount: " + offerValid);
