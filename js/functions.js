@@ -56,13 +56,13 @@ let random = Math.floor((Math.random() * 3) + 1);
  * different result everytime you refresh the page if you are using the random
  * number)
  */
-function isTwo(random){
-  if (random === 2){
-      return true;
-  } else {
-      return false;
-  }
-}
+// function isTwo(random){
+//   if (random === 2){
+//       return true;
+//   } else {
+//       return false;
+//   }
+// }
 console.log(isTwo(random));
 //console.log(isTwo(1));
 //console.log(isTwo(2));
@@ -82,13 +82,13 @@ console.log(isTwo(random));
  * > calculateTip(0.25, 25.50) // returns 6.375
  * > calculateTip(0.15, 33.42) // returns 5.013
  */
-function calculateTip(percent, bill){
-    let tip = percent * bill;
-    return tip;
-//function calculateTip(tip, bill){
-    //return tip*bill;
-}
-console.log(calculateTip(0.20, 20)); // returns 4
+// function calculateTip(percent, bill){
+//     let tip = percent * bill;
+//     return tip;
+// //function calculateTip(tip, bill){
+// //     //return tip*bill;
+// }
+// console.log(calculateTip(0.20, 20)); // returns 4
 //console.log(calculateTip(0.25, 25.50));// returns 6.375
 //console.log(calculateTip(0.15, 33.42)); // returns 5.013
 /**

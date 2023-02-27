@@ -175,7 +175,7 @@ analyzeColor();
 //2. calculateTotal should accept luckyNumber, totalAmount
 //3. return the discounted price
 //4. discount rates 0 - 0, 1- .1, 2- .25, 3 - .35 4 - .50, 5 - free
-let
+
     /**
      * TODO:
      * Uncomment the line below to generate a random number between 0 and 5.
@@ -184,8 +184,7 @@ let
      * and alerts to display to the user what their lucky number was, what their
      * price before the discount was, and what their price after the discount is.
      */
-
-    luckyNumber = Math.floor(Math.random() * 6), totalAmount = prompt("what is the total price of the product?");
+    let luckyNumber = Math.floor(Math.random() * 6), totalAmount = prompt("what is the total price of the product?");
 
 function calculateTotal(luckyNumber, totalAmount) {
 
