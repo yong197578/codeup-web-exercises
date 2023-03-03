@@ -8,21 +8,50 @@
     <title>Form Lecture</title>
 </head>
 <body>
-<form method="POST" action="https://request-inspector.glitch.me/">
-<h2>What kind of phone do you own?</h2>
-<label for="android">
-    Android <input id="android" type="checkbox" name="phones" value="android">
-</label>
-<label for="ios">
-    iOS <input id="ios" type="checkbox" name="phones" value="ios">
-</label>
-<label for="windows">
-    Windows <input id="windows" type="checkbox" name="phones" value="windows">
-</label>
-<label for="other">
-    Other <input id="other" type="checkbox" name="phones" value="other">
-</label>
-<button type="submit">Submit</button>
-</form>
+<!--    <form method="POST" action="https://request-inspector.glitch.me/"> receive information on body in JSON-->
+        <form method="GET" action="https://request-inspector.glitch.me/"> <!--receive information to query-->
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" value="Johndoe"> <!-- value - set value to username name-->
+<!--        <input id="username" name="email" type="email">-->
+        <br>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter the Password">
+        <!-- input id="password" name="ccn" type="password"-->
+        <br>
+            <input type="hidden" name="hidden-input" value="Hello There">
+<!--        <input type="submit"> can use both-->
+            <input type="text" name="promo-code" pleaceholder="XXX-XXXX">
+
+            <!--Check BOX-->
+            <label for="cheese">Cheese</label>
+            <input type="checkbox" name="topping" id="cheese" value="cheese" checked>
+            <label for="pepperoni">Pepperoni</label>
+            <input type="checkbox" name="topping" id="pepperoni" value="pepperoni"> <!--must put value for checkbox-->
+            <label for="volume">volume</label>
+            <br>
+            <input id="volume" name="volume" type="range">
+            <p>Favorite Color:</p>
+            <label for ="red">Red</label>
+            <input type="radio" id="red" name="color" vaule="red">
+            <label for ="green">Red</label>
+            <input type="radio" id="green" name="color" vaule="green"> <!-- all radio button should have same name to choose-->
+            <br>
+            <!--textarea -->
+            <label for="email-body"></label>
+            <textarea id="email-body" name="email-body"></textarea>
+            <br>
+            <label for="size">Size: </label>
+            <select name="size" id="size">
+                <option value="small">S</option> <!--this will store inside value JSON-->
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+            </select>
+            <br>
+            <input type="datetime-local" name="date" disabled> <!--disabled attribute wouldn't user to change-->
+        <button type="submit">Log in</button>
+    </form>
+
 </body>
 </html>
