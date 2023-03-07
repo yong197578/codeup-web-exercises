@@ -1,0 +1,73 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    /*font-family: Arial, Ubuntu, sans-serif;*/
+}
+/*bonus*/
+:root {
+    --bg-info: blue;
+    --text-info: darkblue;
+    --bg-success: lightgreen;
+    --text-success: darkgreen;
+    --bg-warning: lightyellow;
+    --text-warning: gold;
+    --bg-error: red;
+    --text-error: pink;
+}
+.message {
+    margin: 8px;
+    padding: .5em;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+.message-info{
+    color: var(--bg-info);
+    background-color: var(--text-info);
+}
+.message-success{
+    background-color: var(--bg-success);
+    color: var(--text-success);
+}
+.message-warning{
+    color: var(--bg-warning);
+    background-color: var(--text-warning);
+}
+.message-error{
+    color: var(--bg-error);
+    background-color: var(--text-error);
+}
+/*:root {*/
+/*    --main-bg-info: skyblue;*/
+/*    --main-text-info: roboto;*/
+/*}*/
+/*.message {*/
+/*    !*margin: 6px;*!*/
+/*    !*padding: 1em;*!*/
+/*    !*width: auto;*!*/
+/*    !*border-radius: 5px;*!*/
+/*    !*border: 1px solid lightgrey;*!*/
+/*    margin: 8px;*/
+/*    padding: .5em;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid lightgrey;*/
+/*}*/
+/*.message-info{*/
+/*    color: darkblue;*/
+/*    background-color: var(--main-bg-info);*/
+/*}*/
+/*.message-success{*/
+/*    color: green;*/
+/*    background-color: greenyellow;*/
+/*    font-family: var(--main-text-info);*/
+/*}*/
+/*.message-warning{*/
+/*    color: darkkhaki;*/
+/*    background-color: yellow;*/
+/*}*/
+/*.message-error{*/
+/*    color: red;*/
+/*    background-color: pink;*/
+/*}*/
+

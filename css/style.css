@@ -1,0 +1,56 @@
+
+body {
+    background-color: darkseagreen;
+    background-image: url("/img/img1.jpg");
+    font-family: 'Golos Text', sans-serif;
+    color: white;
+}
+.fancy-header {
+    color: whitesmoke;
+    text-decoration: underline;
+    text-align: center;
+}
+header p {
+    text-align: center;
+    color: gray;
+}
+img {
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 300px;
+}
+.core {
+    list-style: none;
+
+
+}
+.process{
+    list-style: upper-roman;
+}
+.vision {
+    list-style: square;
+}
+table th, td{
+    width: 25%;
+    border: 1px solid;
+    font-size: 24px;
+    padding: 20px;
+}
+td {
+    text-align: center;
+}
+
+a:hover{
+    color: red;
+}
+a:link {
+    color: blue;
+}
+a:visited{
+    color: burlywood;
+}
+a:active{
+    color: black;
+}

@@ -1,0 +1,53 @@
+/*select element by name(element name*/
+h1 {
+    color: gold;
+}
+
+/*select element by id*/
+/*#header2 {*/
+/*    color: purple;*/
+/*}*/
+#header4 {
+    color: blue;
+ }
+/*select element by class Name*/
+.content {
+    background-color: aqua;
+}
+h1, #header2 {
+    font-weight: bold;
+}
+
+.hTags{
+    background-color: rosybrown;
+
+}
+/*decendent selecto*/
+/*#container h1{*/
+/*    background: purple;*/
+/*}*/
+
+/*direct child selector*/
+#container>h1{
+    background: mediumpurple;
+}
+
+h1.content{
+    color: blue;
+}
+h2.content{
+    color: green;
+}
+
+a:link{
+    color: red;
+}
+a:visited{
+    color: gold;
+}
+a:hover{
+    color: blue;
+}
+a:active{
+    color: red;
+}
