@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flexbox Basics Examples</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Helvetica;
+            font-weight: bold;
+
+        }
+        .flex-container {
+            width: 100%;
+            height: 100vh;
+            border: 3px solid goldenrod;
+            /*default settings- flex-direction: row; flex-basis: auto; flex-wrap: nowrap*/
+            display: flex;
+            /*flex-direction: column; main axis - top to bottom column-reverse - bottom to top */
+            /*flex-direction: row; main axis - left to right row-reverse - right to left*/
+            flex-direction: column;
+            /*justify-content will work with MAIN AXIS! */
+            /*justify-content: flex-start; this is default left to right*/
+            /*justify-content: flex-end; this left to right but end*/
+            /*justify-content: center; main axis is center;*/
+            /*justify-content: space-around;*/
+            /*justify-content: space-between;*/
+            /*justify-content: space-evenly;*/
+            /*align-items will work with cross axis */
+            align-items: flex-end;
+            /*align-items: baseline; baseline will center the text(align text on same line-*/
+
+        }
+        .flex-item {
+            background: #BFD45D;
+            border: 2px solid #F9EFD6;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="flex-container">
+    <div class="flex-item">Item 1</div>
+    <div class="flex-item">Item 2</div>
+    <div class="flex-item">Item 3</div>
+</div>
+
+</body>
+</html>
