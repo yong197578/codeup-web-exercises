@@ -1,0 +1,21 @@
+/*any screen with at least the width of 500px will have this certain styleing be applies*/
+@media screen and (min-width: 500px){
+    /*selectors in this body will only apply, if the width of the screen is at least 500px*/
+    main{
+        display: flex;
+        justify-content: space-between;
+        background-color: #3B94D9;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1200px){
+    main{
+        background-color: yellow;
+    }
+}
+
+@media screen and (max-width: 499px){
+    main{
+        background-color: #848487;
+    }
+}

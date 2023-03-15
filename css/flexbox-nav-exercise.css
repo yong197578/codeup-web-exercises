@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Golos Text', sans-serif;
+
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: dimgray;
+    align-items: center;
+}
+.navbar a:hover {
+    color: blue;
+}
+.navbar_Menu a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 0 1.5em 0 0;
+}
+.navbar_Menu{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding-left:0;
+
+}
+.navLogo{
+    list-style: none;
+    padding: .2em;
+    font-size: 3em;
+    margin: auto;
+}
+.navLogo a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+.navIcons {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.navIcons a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 0 0 0 1.5em;
+}
+
+
