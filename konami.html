@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Konami Exercise</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 600px 500px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color:blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Konami Code</h1>
+    <h3>Press ↑ ↑ ↓ ↓ ← → ← → b a enter</h3>
+    <canvas id="confetti"></canvas>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+<script>
+    "use strict";
+    let keys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13];
+    let count = 0;
+
+    $(document).keyup(function(event) {
+        let wrongSound = new Audio('audio/wrong.mp3');
+        console.log(event.keyCode);
+            if(event.keyCode === keys[count]) {
+                count += 1;
+            }else{
+                count=0;
+            }
+            if (count === keys.length){
+                activate();
+            }else if (!count){
+                alert("wrong input!");
+                wrongSound.play();
+                document.body.style.backgroundImage = "url('https://24.media.tumblr.com/1c58ff2243955cf3300c96c32eeaa59b/tumblr_n5gbqpqpxw1tq4of6o1_500.gif')";
+
+            }
+        });
+    function activate(){
+        let success = new Audio('audio/success.mp3');
+        alert("You have added 30 lives!");
+
+        document.body.style.backgroundImage = "url('https://images8.alphacoders.com/114/thumbbig-1148845.webp')";
+        success.play();
+
+        };
+
+    // let keys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13];
+    // let count = 0;
+    // let user = [];
+    //
+    // $(document).keyup(function(event) {
+    //
+    //     console.log(event.keyCode);
+    //     user.push(event.keyCode);
+    //     if (keys[count] !== user[count]){
+    //         alert("no");
+    //     }
+    //     else if(keys[keys.length-1] === user[keys.length-1]){
+    //         alert("yes");
+    //     }else{
+    //         count++;
+    //     }
+    // });
+    //38 38 40 40 37 39 37 39 65 66 13
+
+
+</script>
+
+</body>
+</html>

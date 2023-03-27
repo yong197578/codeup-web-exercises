@@ -8,10 +8,61 @@
     <title>Document</title>
 </head>
 <body>
+    <h1 id="id1">Hello World</h1>
+    <h2 id="id2">This is Exercise</h2>
+    <p class="codeup">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias autem commodi eligendi enim, ex facere fuga, iste, iure laboriosam magni necessitatibus possimus praesentium qui quibusdam rerum sed suscipit unde veritatis.</p>
+<!--    <ul class="codeup">-->
+    <ul id="codeup">
+        <li>list 1</li>
+        <li>list 2</li>
+        <li>list 3</li>
+    </ul>
+    <div class="codeup">
+        <h2>This is jQuery Exercise</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dicta ex fugit, ipsum labore minima nemo non officiis <span> quidem recusandae sit sunt </span> totam veniam! Aspernatur deleniti excepturi officidis perferendis tempora?</p>
+    </div>
 
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-<script src="js/jquery_exercises.js"></script>
+<script>
+    'use strict'
+    //
+    // let firstId = $('#id1', function(){
+    //     alert('this is firstId');
+    // })
+    // firstId.css('background', 'blue');
+    //
+    // let secondId = $('#id2', function(){
+    //     alert('this is secondId');
+    // })
+    // secondId.css('font-size', '18px');
+    // //
+    // let classSelector = $('.codeup').css('border', '1px solid red');
+    //
+    // let idSelector = $('#codeup').css('border', '1px solid red');
+    //
+    // $('li').css('font-size', '20px');
+    // $('h1', function(){
+    //     // alert('Hello World!');
+    // }).css('color', 'darkgrey');
+    // $('li, p, h1').css('background-color', 'yellowgreen');
+    // alert($('h1').html());
+    $('h1').click(function(e){
+        $(this).css('background-color', 'green');
+    });
+    // $('p').dblclick(function(e){
+    //     $(this).css('font-size', '18px');
+    // });
+    $('p').dblclick(function(e){
+        $('p').css('font-size', '18px');
+    });
+    $('li').hover(function(e){
+        $(this).css('color', 'red');
+        },
+        function(e) {
+            $(this).css('color', 'black');
+    })
+</script>
 </body>
 </html>
