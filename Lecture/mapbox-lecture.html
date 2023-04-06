@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Mapbox Map</title>
+    <!-- Mapbox JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />    <style>
+    #map {
+        /* the width and height may be set to any size */
+        width: 100%;
+        height: 700px;
+    }
+</style>
+    <script src="../js/keys.js"></script>
+</head>
+<body>
+
+<h1>My First Mapbox Map!</h1>
+
+<!-- The HTML element that serves as the Mapbox container -->
+<div id='map'></div>
+
+
+<!-- Custom JS -->
+<script src="js/keys.js"></script>
+<script src="js/mapbox-geocoder.js"></script>
+<script>
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    let map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        zoom: 10, // starting zoom
+        center: [-98.4916, 29.4252] // [lng, lat]
+    });
+    let marker = new mapboxgl.Marker()
+    .setLngLat([-98.4916, 29.4252])
+    .addTo(map);
+
+    let popup = new mapboxgl.Popup().setLngLat([-98.4916, 29.4252])
+    .setHTML("<h1>Dallas</h1>")//.addTo(map);
+    marker.setPopup(popup);
+
+
+</script>
+</body>
+</html>

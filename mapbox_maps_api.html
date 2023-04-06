@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mapbox Exercise</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet'/>    <style>
+    #map {
+        /* the width and height may be set to any size */
+        width: 100%;
+        height: 700px;
+    }
+</style>
+</head>
+<body>
+<div class='sidebar'>
+    <div class='heading'>
+        <h1>Favorite restaurants</h1>
+    </div>
+    <div id='listings' class='listings'></div>
+</div>
+<div id="map"></div>
+<script src="js/keys.js"></script>
+<script src="js/mapbox-geocoder.js"></script>
+<script>
+    //API key
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    //generate Map using API
+    let map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        zoom: 10, // starting zoom
+        center: [-96.8900, 32.9756] // [lng, lat]
+    });
+    //Search function to addControl
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl
+        })
+    );
+    //using geocode to set marker and popup info
+    geocode("3044 Old Denton Rd Apt 133, Carrollton, TX 75007", MAPBOX_TOKEN).then(function(result) {
+        console.log(result);
+        map.setCenter(result);
+        map.setZoom(14);
+        let rest1 = new mapboxgl.Marker()
+            .setLngLat([-96.9076, 32.9979])
+            .addTo(map);
+        let popup = new mapboxgl.Popup().setLngLat([-96.9076, 32.9979])
+            .setHTML("<img src='img/Moodaepo.jpeg' style='width:150px; height: 150px; display: flex; padding: 10px;'><h2 style='text-align: center; margin: 0;'>Moodaepo</h2><br><p style='margin:0; text-align: center;'>3044 Old Denton Rd Apt 133,<br> Carrollton, TX 75007</p></img>");
+             rest1.setPopup(popup);
+
+    });
+    let restaurants = [
+        {
+            "address": "3044 Old Denton Rd Apt 133, Carrollton, TX 75007"
+        },
+        {
+            "address": "2540 Old Denton Rd Carrollton, TX 75006"
+        },
+        {
+            "address": "320 Singleton Blvd, Dallas, TX 75212"
+
+        }
+    ];
+
+    restaurants.forEach(function(test){
+        console.log(test);
+      geocode(test.address, MAPBOX_TOKEN).then(function(rest){
+          console.log(rest[0], rest[1]);
+          let location = [rest[0], rest[1]];
+          map.setCenter(rest);
+              map.setZoom(9);
+              let rest1 = new mapboxgl.Marker()
+                  .setLngLat(location)
+                  .addTo(map);
+              let popup = new mapboxgl.Popup().setLngLat(location)
+                  .setHTML("<h1>location</h1>");
+                   rest1.setPopup(popup);
+      })
+    })
+    // //instructor answer
+    // let restaurants1 = [
+    //     {
+    //         name: "Downtown Dallas Mcdonald's",
+    //         location: [-96.8030, 32.7786],
+    //         type: "skeytch estab",
+    //         image: " "
+    //     },
+    //     {   name: "twisted Trompo",
+    //         location: [-96.801452, 32.77958],
+    //         type: "Taco Rest",
+    //         image: " "
+    //     },
+    //     {
+    //         name: "chick-fil-a",
+    //         location: [-96.8000, 32.781485],
+    //         type: "chicken rest",
+    //         image: ""
+    //     }
+    // ];
+    // restaurants1.forEach(function(restaurant){
+    //     let popup = new mapboxgl.Popup()
+    //         .setHTML('<h3>' + restaurant.name + '</h3>' + '<p>' + restaurant.type + '</p>' + <img src="' + restaurant.image '">')
+    //     marker = new.mapboxgl.Marker()
+    //         .setLngLat(restaurant.location)
+    //         .addTo(map)
+    //         .setPopup(popup);
+    //     popup.addTo(map);
+    // })
+</script>
+
+
+
+
+</body>
+</html>

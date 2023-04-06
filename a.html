@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Map</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet'/>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'/>
+    <style>
+        #map {
+            width: 100%;
+            height: 300px;
+        }
+        .card {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        #place {
+            margin-top: 20px;
+            margin-left: 40px;
+            font-weight: bolder;
+            font-style: oblique;
+            font-size: larger;
+            color: white;
+        }
+        #search-input {
+            margin-left: 10px;
+        }
+        #search-button {
+            margin-left: 10px;
+        }
+        .navbar-brand{
+            font-size: x-large;
+        }
+        body {
+            background-image: url('https://images.pexels.com/photos/2902376/pexels-photo-2902376.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Weather App</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Current City: <span id="current-city"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="search-container">
+    <p id="place"> Place
+        <input id="search-input" placeholder="Search for a location">
+        <button type="button" class="btn btn-primary btn-sm" id="search-button">find</button>
+    </p>
+</div>
+<div id="cards" class="d-flex"></div>
+<div id='map'></div>
+<script src="js/keys.js"></script>
+<script src="js/mapbox-geocoder.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script>
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    let map = new mapboxgl.Map({
+        container: 'map', // container ID
+        // projection: 'globe',
+        style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
+        zoom: 12, // starting zoom
+        center: [-96.80294985008125, 32.777609251915024] // [lng, lat]
+    });
+    function createCards(lon, lat) {
+        let html = ""
+        $.get("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + OPEN_WEATHER_APPID, {
+            // APPID: OPEN_WEATHER_APPID,
+            // q: "Dallas, US",
+            units: "imperial"
+        }).done(function (weatherData) {
+            for (let i = 0; i <= 39; i += 8) {
+                // html += ""
+                console.log(weatherData.list[i])
+                //<------Below is the descritption------>
+                weatherData.list[i].weather[0].description
+                //<-------Below is the humidity--------->
+                weatherData.list[i].main.humidity
+                //<--------Below is the wind------------->
+                weatherData.list[i].wind.speed
+                //<--------Below is the preesure---------->
+                weatherData.list[i].main.pressure
+                weatherData.list[i].dt_txt
+// Split the date and time
+//                 let dateTime = data.list[i].dt_txt.split(' ');
+// Use only the date portion
+//                 let date = dateTime[0];
+// Formats date to Date, month day and year
+                const date = new Date(weatherData.list[i].dt_txt).toDateString();
+                // console.log(date);
+                html += "<div class='col'>"
+                html += "<div class='card border-primary' style='height: 100%; width: 250px'>"
+                html += "<div class='card-header text-center'>" + date + "</div>";
+                html += "<div class='card-body'>"
+                html += "<h5 class='card-title text-center'>" + weatherData.list[i].main.temp_max + "°F / " + weatherData.list[i].main.temp_min + "°F" + "</h5>";
+                html += "<p class='card-text text-center'>" + "<img src='http://openweathermap.org/img/w/" + weatherData.list[i].weather[0].icon + ".png'></img>" + "</p>";
+                html += "<p class='card-text'>" + "Description: " + weatherData.list[i].weather[0].description + "</p>";
+                html += "<p class='card-text'>" + "Humidity: " + weatherData.list[i].main.humidity + "</p>";
+                html += "<p class='card-text'>" + "Wind: " + weatherData.list[i].wind.speed + "</p>";
+                html += "<p class='card-text'>" + "Pressure: " + weatherData.list[i].main.pressure + "</p>";
+                html += "</div>";
+                html += "</div>";
+                html += "</div>";
+            }
+            $('#cards').html(html);
+            $('#current-city').html(weatherData.city.name)
+            // document.getElementById('search-bar').appendChild(geocoder.onAdd(map));
+        });
+    }
+    createCards(-96.80294985008125, 32.777609251915024)
+    document.getElementById("search-button").addEventListener("click", function () {
+        //geocoder function will return a promise, this promise has our location
+        let currentLocation = geocode(document.getElementById("search-input").value, MAPBOX_TOKEN);
+        //Use the then funtion to retrieve the information from your promise
+        currentLocation.then(function (results) {
+            //log out my results(the data within my promise)
+            console.log(results)
+            //we set data equal to center of our map
+            map.setCenter([results[0], results[1]])
+            createCards(results[0], results[1])
+        })
+    })
+    map.on('click', function (e){
+        let lat = e.lngLat.lat;
+        let lon = e.lngLat.lng;
+        createCards(lon,lat);
+        let marker = new mapboxgl.Marker()
+            .setLngLat([lon, lat])
+            .addTo(map);
+    })
+    map.addControl(new mapboxgl.NavigationControl());
+</script>
+</body>
+</html>

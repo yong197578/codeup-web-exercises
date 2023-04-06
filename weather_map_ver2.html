@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Version 2</title>
+    <!--    //Mapbox GL JS CDN-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+    <!--    //bootstrap CSS link-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--    jquery file-->
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!--    //key and mapbox js files-->
+    <script src="js/keys.js"></script>
+    <script src="js/mapbox-geocoder.js"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+
+        }
+        #map {
+
+            width: 100%;
+            height: 700px;
+            margin-top: 15px;
+        }
+        nav {
+            margin: 15px;
+            display: flex;
+            width: 100vw;
+        }
+        form {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#"><h1>Weather Forecast</h1></a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="btn" type="button">Search</button>
+    </form>
+</nav>
+
+<!--//Create Cards HTML-->
+<div id="weatherCards" class="d-flex"></div>
+<!--//Create Map-->
+<div id="map"></div>
+<script>
+    //API key
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    //generate Map using API
+    let map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/satellite-streets-v12', // style URL
+        zoom: 10, // starting zoom
+        center: [-96.7970, 32.7767] // [lng, lat]
+    });
+    //
+    let marker = new mapboxgl.Marker()
+        .setLngLat([-96.7970, 32.7767]).addTo(map);
+
+         getWeather(-96.7970, 32.7767);
+    //create function to get data from Openweather API
+    function getWeather(lng, lat){
+        let html = "";
+        $.get("http://api.openweathermap.org/data/2.5/forecast", {
+            APPID: OPEN_WEATHER_APPID,
+            lat: lat,
+            lon: lng,
+            units: "imperial"
+
+        }).done(function(data){
+            // console.log(data)
+
+            for(let i=0; i < 40; i+=8) {
+
+            //create html
+
+                html += "<div class='col'>";
+                html += "<div class='card border-success' style='margin: 10px; height: 100%; width: 250px'>";
+                let myDate1 = data.list[i].dt_txt;
+                let date = new Date(myDate1);
+                let dateFormat = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                html += "<div class='card-header'>" + dateFormat + "</div>";
+                html += "<div class='card-body text-center'>";
+                let icon = data.list[i].weather[0].icon;
+                html += "<img src='https://openweathermap.org/img/wn/" + icon + ".png' style='height:100px; width:100px; ;'>";
+                let tempMin = data.list[i].main.temp_min;
+                let tempMax = data.list[i].main.temp_max;
+                html += "<h4 class='card-title'>" + tempMin + "℉ / " + tempMax + "℉" + "</h4>";
+                let desc = data.list[i].weather[0].description;
+                html += "</div>"
+                html += "<p class='card-text>" + "Description: " + desc.toUpperCase() + "</p>";
+                let humid = data.list[i].main.humidity;
+                html += "<p class='card-text'>" + "Humidity: " + humid + " gm³" + "</p>";
+                let windSpeed = data.list[i].wind.speed;
+                html += "<p class='card-text'>" + "Wind Speed: " + windSpeed + " mph" + "</p>";
+                let press = data.list[i].main.pressure;
+                html += "<p class='card-text'>Pressure: " + press  + " millibars" + "</p>";
+                html +="</div>";
+                html +="</div>";
+                html +="</div>";
+
+
+            }
+            $('#weatherCards').html(html);
+        })
+    }
+
+    //click type to create function to get long and lat
+    map.on('click', function(event){
+
+        let long = event.lngLat.lng;
+        let lat =event.lngLat.lat;
+        marker.setLngLat([long, lat]).addTo(map);
+        getWeather(long, lat);
+    });
+    marker.remove();
+function updateMarker() {
+    document.getElementById("btn").addEventListener("click", function () {
+        // SETTING THE FIRST PARAMETER OF geocode() AS THE VALUE TYPED INTO THE SEARCH BOX, SECOND PARAM IS API KEY
+        let currentLocation = geocode(document.getElementById("search").value, MAPBOX_TOKEN);
+        console.log(currentLocation);
+        // .then IS GETTING THE RESULTS FROM PROMISE AND FILTER THEM INTO "center" AS LAT AND LNG AT INDEX 0, AND 1.
+        currentLocation.then(function (results) {
+            console.log(results);
+            map.setCenter([results[0], results[1]]);
+            marker.setLngLat([results[0], results[1]]).addTo(map);
+            getWeather(results[0], results[1]);
+
+        });
+    });
+}
+updateMarker();
+</script>
+
+
+</body>
+</html>

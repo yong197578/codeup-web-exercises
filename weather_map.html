@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Map Project</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+
+        }
+        #map {
+
+            width: 100%;
+            height: 100%;
+            margin-top: 15px;
+        }
+        .card-group {
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            width: 100vw;
+            text-align: center;
+            padding: 20px;
+
+
+        }
+        .card {
+            margin-bottom: 10px;
+
+        }
+        nav {
+            margin: 15px;
+            display: flex;
+            width: 100vw;
+
+        }
+</style>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#"><h1>Weather Forecast</h1></a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="btn" type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="card-group">
+
+    <div class="card">
+        <div class="card-header" id="day1Date">
+            Date
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day1Temp"></li>
+            <li class="list-group-item" id="day1Icon"><img id="icon1" src="" alt="weather icon"></li>
+            <li class="list-group-item" id="day1Desc"> </li>
+            <li class="list-group-item" id="day1Humid"></li>
+            <li class="list-group-item" id="day1Wind"> </li>
+            <li class="list-group-item" id="day1Press"></li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header" id="day2Date">
+            Date
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day2Temp" >temp</li>
+            <li class="list-group-item" id="day2Icon"><img id="icon2" src="" alt="weather icon"></li>
+            <li class="list-group-item" id="day2Desc">Description: </li>
+            <li class="list-group-item" id="day2Humid">Humidity: </li>
+            <li class="list-group-item" id="day2Wind">Wind: </li>
+            <li class="list-group-item" id="day2Press">Pressure: </li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header" id="day3Date">
+            Date
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day3Temp">temp</li>
+            <li class="list-group-item" id="day3Icon"><img id="icon3" src="" alt="weather icon"></li>
+            <li class="list-group-item" id="day3Desc">Description: </li>
+            <li class="list-group-item" id="day3Humid">Humidity: </li>
+            <li class="list-group-item" id="day3Wind">Wind: </li>
+            <li class="list-group-item" id="day3Press">Pressure: </li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header" id="day4Date">
+            Date
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day4Temp" >temp</li>
+            <li class="list-group-item" id="day4Icon"><img id="icon4" src="" alt="weather icon"></li>
+            <li class="list-group-item" id="day4Desc">Description: </li>
+            <li class="list-group-item" id="day4Humid">Humidity: </li>
+            <li class="list-group-item" id="day4Wind">Wind: </li>
+            <li class="list-group-item" id="day4Press">Pressure: </li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header" id="day5Date">
+            Date
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day5Temp" >temp</li>
+            <li class="list-group-item" id="day5Icon"><img id="icon5" src="" alt="weather icon"></li>
+            <li class="list-group-item" id="day5Desc">Description: </li>
+            <li class="list-group-item" id="day5Humid">Humidity: </li>
+            <li class="list-group-item" id="day5Wind">Wind: </li>
+            <li class="list-group-item" id="day5Press">Pressure: </li>
+        </ul>
+    </div>
+
+</div>
+
+<div id="map"></div>
+<pre id="coordinates" class="coordinates"></pre>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<script src="js/keys.js"></script>
+<script src="js/mapbox-geocoder.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script>
+    //API key
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    //generate Map using API
+    let map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/satellite-streets-v12', // style URL
+        zoom: 12, // starting zoom
+        center: [-96.7970, 32.7767] // [lng, lat]
+    });
+    const marker = new mapboxgl.Marker({
+        draggable: true,
+    })
+        .setLngLat([-96.7970, 32.7767])
+        .addTo(map);
+
+    map.on('load', function(){
+        $.get("http://api.openweathermap.org/data/2.5/forecast", {
+            APPID: OPEN_WEATHER_APPID,
+            q: 'Dallas, US',
+            units: 'imperial',
+        }).done(function(data){
+                let myDate1 = data.list[0].dt_txt;
+                let date1 = new Date(myDate1);
+                let dateFormat1 = date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate();
+                let myDate2 = data.list[8].dt_txt;
+                let date2 = new Date(myDate2);
+                let dateFormat2 = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+                let myDate3 = data.list[16].dt_txt;
+                let date3 = new Date(myDate3);
+                let dateFormat3 = date3.getFullYear() + "-" + (date3.getMonth() + 1) + "-" + date3.getDate();
+                let myDate4 = data.list[24].dt_txt;
+                let date4 = new Date(myDate4);
+                let dateFormat4 = date4.getFullYear() + "-" + (date4.getMonth() + 1) + "-" + date4.getDate();
+                let myDate5 = data.list[32].dt_txt;
+                let date5 = new Date(myDate5);
+                let dateFormat5 = date5.getFullYear() + "-" + (date5.getMonth() + 1) + "-" + date5.getDate();
+                //get date from data obj
+                $('#day1Date').html(dateFormat1);
+                $('#day2Date').html(dateFormat2);
+                $('#day3Date').html(dateFormat3);
+                $('#day4Date').html(dateFormat4);
+                $('#day5Date').html(dateFormat5);
+                //get temp min and max from data obj
+                $('#day1Temp').html(data.list[0].main.temp_min + "℉" + " / " + data.list[0].main.temp_max + "℉");
+                $('#day2Temp').html(data.list[8].main.temp_min +"℉" + " / " + data.list[8].main.temp_max + "℉");
+                $('#day3Temp').html(data.list[16].main.temp_min + "℉" + " / " + data.list[16].main.temp_max + "℉");
+                $('#day4Temp').html(data.list[24].main.temp_min + "℉" + " / " + data.list[24].main.temp_max + "℉");
+                $('#day5Temp').html(data.list[32].main.temp_min + "℉" + " / " + data.list[32].main.temp_max + "℉");
+                //get description from data obj
+                $('#day1Desc').html(data.list[0].weather[0].description.toUpperCase());
+                $('#day2Desc').html(data.list[8].weather[0].description.toUpperCase());
+                $('#day3Desc').html(data.list[16].weather[0].description.toUpperCase());
+                $('#day4Desc').html(data.list[24].weather[0].description.toUpperCase());
+                $('#day5Desc').html(data.list[32].weather[0].description.toUpperCase());
+                //get humidity from data obj
+                $('#day1Humid').html("Humidity: " + data.list[0].main.humidity + " gm³");
+                $('#day2Humid').html("Humidity: " + data.list[8].main.humidity + " gm³");
+                $('#day3Humid').html("Humidity: " + data.list[16].main.humidity + " gm³");
+                $('#day4Humid').html("Humidity: " + data.list[24].main.humidity + " gm³");
+                $('#day5Humid').html("Humidity: " + data.list[32].main.humidity + " gm³");
+                //get wind speed from data obj
+                $('#day1Wind').html("Wind Speed: " + data.list[0].wind.speed + "mph");
+                $('#day2Wind').html("Wind Speed: " + data.list[8].wind.speed + "mph");
+                $('#day3Wind').html("Wind Speed: " + data.list[16].wind.speed + "mph");
+                $('#day4Wind').html("Wind Speed: " + data.list[24].wind.speed + "mph");
+                $('#day5Wind').html("Wind Speed: " + data.list[32].wind.speed + "mph");
+                //get pressure from data obj
+                $('#day1Press').html("Pressure: " + data.list[0].main.pressure + " millibars");
+                $('#day2Press').html("Pressure: " + data.list[8].main.pressure + " millibars");
+                $('#day3Press').html("Pressure: " + data.list[16].main.pressure + " millibars");
+                $('#day4Press').html("Pressure: " + data.list[24].main.pressure + " millibars");
+                $('#day5Press').html("Pressure: " + data.list[32].main.pressure + " millibars");
+                //icons
+                let icon1 = data.list[0].weather[0].icon;
+                console.log(icon1);
+                let iconUrl1 = "https://openweathermap.org/img/wn/" + icon1 + ".png";
+                $('#icon1').attr('src', iconUrl1);
+                let icon2 = data.list[0].weather[0].icon;
+                let iconUrl2 = "https://openweathermap.org/img/wn/" + icon2 + ".png";
+                $('#icon2').attr('src', iconUrl2);
+                let icon3 = data.list[8].weather[0].icon;
+                let iconUrl3 = "https://openweathermap.org/img/wn/" + icon3 + ".png";
+                $('#icon3').attr('src', iconUrl3);
+                let icon4 = data.list[16].weather[0].icon;
+                let iconUrl4 = "https://openweathermap.org/img/wn/" + icon4 + ".png";
+                $('#icon4').attr('src', iconUrl4);
+                let icon5 = data.list[0].weather[0].icon;
+                let iconUrl5 = "https://openweathermap.org/img/wn/" + icon5 + ".png";
+                $('#icon5').attr('src', iconUrl5);
+
+        })
+    })
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: MAPBOX_TOKEN,
+            countries: 'US',
+            bbox: [-106.64719063660635,25.840437651866516,-93.5175532104321,36.50050935248352],
+            filter: function (item) {
+                return item.context.some((i) => {
+                    return (
+                        i.id.split('.').shift() === 'region'
+                    );
+                });
+            },
+            mapboxgl: mapboxgl
+        })
+    );
+
+
+    function onDragEnd() {
+        const lngLat = marker.getLngLat();
+        // coordinates.style.display = 'block';
+        // coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        let long = lngLat.lng;
+        let lat = lngLat.lat;
+        getWeather(long, lat);
+
+    }
+
+    marker.on('dragend', onDragEnd);
+
+        function getWeather(lng, lat) {
+            console.log(lng, lat);
+            $.get("http://api.openweathermap.org/data/2.5/forecast", {
+                APPID: OPEN_WEATHER_APPID,
+                lat: lat,
+                lon: lng,
+                units: 'imperial',
+
+            }).done(function (data) {
+
+                // $('#day1Date').html(data.list[0].dt_txt);
+
+                let myDate1 = data.list[0].dt_txt;
+                let date1 = new Date(myDate1);
+                let dateFormat1 = date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate();
+                let myDate2 = data.list[8].dt_txt;
+                let date2 = new Date(myDate2);
+                let dateFormat2 = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+                let myDate3 = data.list[16].dt_txt;
+                let date3 = new Date(myDate3);
+                let dateFormat3 = date3.getFullYear() + "-" + (date3.getMonth() + 1) + "-" + date3.getDate();
+                let myDate4 = data.list[24].dt_txt;
+                let date4 = new Date(myDate4);
+                let dateFormat4 = date4.getFullYear() + "-" + (date4.getMonth() + 1) + "-" + date4.getDate();
+                let myDate5 = data.list[32].dt_txt;
+                let date5 = new Date(myDate5);
+                let dateFormat5 = date5.getFullYear() + "-" + (date5.getMonth() + 1) + "-" + date5.getDate();
+                //get date from data obj
+                $('#day1Date').html(dateFormat1);
+                $('#day2Date').html(dateFormat2);
+                $('#day3Date').html(dateFormat3);
+                $('#day4Date').html(dateFormat4);
+                $('#day5Date').html(dateFormat5);
+                //get temp min and max from data obj
+                console.log(data.list[0].main.temp_min, data.list[0].main.temp_max);
+                $('#day1Temp').html(data.list[0].main.temp_min + "℉" + " / " + data.list[0].main.temp_max + "℉");
+                $('#day2Temp').html(data.list[8].main.temp_min +"℉" + " / " + data.list[8].main.temp_max + "℉");
+                $('#day3Temp').html(data.list[16].main.temp_min + "℉" + " / " + data.list[16].main.temp_max + "℉");
+                $('#day4Temp').html(data.list[24].main.temp_min + "℉" + " / " + data.list[24].main.temp_max + "℉");
+                $('#day5Temp').html(data.list[32].main.temp_min + "℉" + " / " + data.list[32].main.temp_max + "℉");
+                //get description from data obj
+                $('#day1Temp').html(data.list[0].main.temp_min + "℉" + " / " + data.list[0].main.temp_max + "℉");
+                $('#day2Temp').html(data.list[8].main.temp_min +"℉" + " / " + data.list[8].main.temp_max + "℉");
+                $('#day3Temp').html(data.list[16].main.temp_min + "℉" + " / " + data.list[16].main.temp_max + "℉");
+                $('#day4Temp').html(data.list[24].main.temp_min + "℉" + " / " + data.list[24].main.temp_max + "℉");
+                $('#day5Temp').html(data.list[32].main.temp_min + "℉" + " / " + data.list[32].main.temp_max + "℉");
+                //get description from data obj
+                $('#day1Desc').html(data.list[0].weather[0].description.toUpperCase());
+                $('#day2Desc').html(data.list[8].weather[0].description.toUpperCase());
+                $('#day3Desc').html(data.list[16].weather[0].description.toUpperCase());
+                $('#day4Desc').html(data.list[24].weather[0].description.toUpperCase());
+                $('#day5Desc').html(data.list[32].weather[0].description.toUpperCase());
+                //get humidity from data obj
+                $('#day1Humid').html("Humidity: " + data.list[0].main.humidity + " gm³");
+                $('#day2Humid').html("Humidity: " + data.list[8].main.humidity + " gm³");
+                $('#day3Humid').html("Humidity: " + data.list[16].main.humidity + " gm³");
+                $('#day4Humid').html("Humidity: " + data.list[24].main.humidity + " gm³");
+                $('#day5Humid').html("Humidity: " + data.list[32].main.humidity + " gm³");
+                //get wind speed from data obj
+                $('#day1Wind').html("Wind Speed: " + data.list[0].wind.speed + "mph");
+                $('#day2Wind').html("Wind Speed: " + data.list[8].wind.speed + "mph");
+                $('#day3Wind').html("Wind Speed: " + data.list[16].wind.speed + "mph");
+                $('#day4Wind').html("Wind Speed: " + data.list[24].wind.speed + "mph");
+                $('#day5Wind').html("Wind Speed: " + data.list[32].wind.speed + "mph");
+                //get pressure from data obj
+                $('#day1Press').html("Pressure: " + data.list[0].main.pressure + " millibars");
+                $('#day2Press').html("Pressure: " + data.list[8].main.pressure + " millibars");
+                $('#day3Press').html("Pressure: " + data.list[16].main.pressure + " millibars");
+                $('#day4Press').html("Pressure: " + data.list[24].main.pressure + " millibars");
+                $('#day5Press').html("Pressure: " + data.list[32].main.pressure + " millibars");
+                //icons
+                let icon1 = data.list[0].weather[0].icon;
+                console.log(icon1);
+                let iconUrl1 = "https://openweathermap.org/img/wn/" + icon1 + ".png";
+                $('#icon1').attr('src', iconUrl1);
+                let icon2 = data.list[0].weather[0].icon;
+                let iconUrl2 = "https://openweathermap.org/img/wn/" + icon2 + ".png";
+                $('#icon2').attr('src', iconUrl2);
+                let icon3 = data.list[8].weather[0].icon;
+                let iconUrl3 = "https://openweathermap.org/img/wn/" + icon3 + ".png";
+                $('#icon3').attr('src', iconUrl3);
+                let icon4 = data.list[16].weather[0].icon;
+                let iconUrl4 = "https://openweathermap.org/img/wn/" + icon4 + ".png";
+                $('#icon4').attr('src', iconUrl4);
+                let icon5 = data.list[0].weather[0].icon;
+                let iconUrl5 = "https://openweathermap.org/img/wn/" + icon5 + ".png";
+                $('#icon5').attr('src', iconUrl5);
+
+            });
+
+          // / for (let i = 0; i <= 39; i += 8) {
+                // I can use html +=  to make it shorter
+                //     // console.log(data.list[i]);
+                //     // console.log(data.list[i].dt_txt);
+                //     console.log(data.list[i].dt_txt);
+                //     // console.log(data.list[i].main.temp_max);
+                // console.log(data.list[i].main.temp_min);
+                // console.log(data.list[i].weather[0].description);
+                // console.log(data.list[i].main.humidity);
+                // console.log(data.list[i].wind.speed);
+                // console.log(data.list[i].main.pressure);
+
+            // function result() {
+            //     document.getElementById('btn').addEventListener('click', function () {
+            //         let currentLocation = geocode(document.getElementById('search').value, MAPBOX_TOKEN);
+            //         currentLocation.then(function (result) {
+            //             console.log(lat, lng);
+                        //       map.setCenter([result[0], result[1]);
+                        //       getWeather(result[0], result[1])
+                        //       })
+                        // function search(){
+                        //     document.getElementById('btn').addEventListener('click', function(){
+                        //         let currentLocation = geocode(document.getElementById('search').value, MAPBOX_TOKEN);
+                        //         console.log(currentLocation)
+                        //     })
+                        // }
+                        // marker.remove();
+                        // marker.on('click', search).addTo(map);
+
+            //         })
+            //     })
+            // }
+        }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</body>
+</html>
