@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Nunito Sans", serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    background-color: steelblue;
+    color: white;
+}
+.container {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px 40px;
+    border-radius: 5px;
+}
+.container h1{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.container a{
+    text-decoration: none;
+    color: lightblue;
+}
+/*wraps around input and labels*/
+.form-control {
+    position: relative;
+    margin: 20px 0 40px;
+    width: 300px;
+}
+.form-control input {
+    /*put input box transparent */
+    background-color: transparent;
+    /*remove all input boxes*/
+    border: 0;
+    /*add bottom line */
+    border-bottom: 2px #fff solid;
+    /*put input field as block */
+    display: block;
+    /*use all width to show bottom(border) lines */
+    width: 100%;
+    /*top and bottom padding 15px */
+    padding: 15px 0;
+    font-size: 18px;
+    color: white;
+    outline:0;
+}
+/*The :focus CSS pseudo-class represents an element (such as a form input) that has received focus. It is generally triggered when the user clicks or taps on an element or selects it with the keyboard's Tab key.*/
+.form.control input:focus, .form-control input:valid {
+   /*remove border lines when user click and type email and password fields.  */
+    outline: 0;
+    /*get same color as .form-control input:focus & valid */
+    color: lightblue;
+}
+
+.btn {
+    cursor: pointer;
+    /*display: inline-block - it apply height and width values. inline itself wouldn't apply height and width*/
+    display: inline-block;
+    width: 100%;
+    background: lightblue;
+    padding: 15px;
+    /*receive the body's font family*/
+    font-family: inherit;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+}
+.btn:focus {
+    /*remove border lines when user hovers the login button*/
+    outline:0;
+}
+/*user click the login button tranform effect to 0.98*/
+/*scale() CSS function defines a transformation that resizes an element on the 2D plane*/
+.btn:active {
+    transform: scale(0.98);
+}
+.text {
+    margin-top: 30px;
+}
+
+.form-control label {
+    /*use absolute position and top left function to move email and password text to go up */
+    position: absolute;
+    top: 15px;
+    left: 0;
+}
+.form-control label span {
+    display: inline-block;
+    font-size: 18px;
+    min-width: 5px;
+    /*transition to letter to go up */
+    transition: 0.3s cubic-bezier(0.68, -0.55, 0.268, 1.55);
+}
+.form-control input:focus + label span, .form-control input:valid + label span {
+    color: lightblue;
+    /*when -negative number then letter will go up +positive number letter will go down*/
+    transform: translateY(-30px);
+
+}

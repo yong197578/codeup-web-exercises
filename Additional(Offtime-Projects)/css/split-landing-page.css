@@ -1,0 +1,132 @@
+/*background color to be blue overlay color*/
+:root {
+    /*a = will be transparency 0.7 and 1 is no transparency*/
+    --left-bg-color: rgba(87, 84, 236, 0.7);
+    --right-bg-color: rgba(43, 43,43, 0.8);
+    --left-btn-hover-color: rgba(87, 84, 236, 1);
+    --right-btn-hover-color:  rgba(28, 122, 28, 1);
+    /*make screen left side 75% and right side 25%*/
+    --hover-width: 75%;
+    --other-width: 25%;
+    --speed: 1000ms;
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: "Roboto Light", serif;
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+}
+h1 {
+    font-size: 4rem;
+    color: #fff;
+    position: absolute;
+    /*move left 50% of 50% of screen top 20%*/
+    left: 50%;
+    top:20%;
+    /*transform h1 letter to -50% so it will make middle of 50% screen*/
+    transform: translateX(-50%);
+    /* h1 wraps when screen sizes getting smaller make h1 letter to no-wrap*/
+    white-space: nowrap;
+}
+.btn {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    /*make Buy Now to center of box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: white;
+    border: white solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 15rem;
+    padding: 1.5rem;
+}
+/*make button background color and border to be blue*/
+.split.left .btn:hover {
+    background: var(--left-btn-hover-color);
+    border-color: var(--left-btn-hover-color);
+}
+.split.right .btn:hover {
+    background: var(--right-btn-hover-color);
+    border-color: var(--right-btn-hover-color);
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #333;
+}
+
+.split {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+/*ps5 screen*/
+.split.left{
+    left:0;
+    background: url('img/ps5.png') no-repeat;
+    background-size: cover;
+}
+/*style with overlay*/
+.split.left::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--left-bg-color);
+}
+
+.split.right {
+    right: 0;
+    background: url('img/xbox.jpg') no-repeat;
+    background-size: cover;
+}
+.split.right::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--right-bg-color);
+}
+
+.split.right, .split.left, .split.right::before, .split.left::before{
+    transition: all var(--speed) ease-in-out;
+}
+
+.hover-left .left {
+    width: var(--hover-width);
+}
+
+.hover-left .right {
+    width: var(--other-width);
+}
+
+.hover-right .right {
+    width: var(--hover-width);
+}
+
+.hover-right .left {
+    width: var(--other-width);
+}
+@media(max-width: 800px){
+    h1 {
+        font-size: 2rem;
+        top: 30%;
+    }
+    .btn {
+        padding: 1.2rem;
+        width: 12rem;
+    }
+}
