@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /*rgb(161,100,223)*/
+    background-color: mediumpurple;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+.btn {
+    background-color: rebeccapurple;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    /*1rem = 16px .2rem = 3.2px*/
+    margin: 1rem;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    font-family: inherit;
+    cursor: pointer;
+}
+.btn:hover{
+    /*opacity is the degree oto which content behind an element is hidden opactiy 0 means hidden element
+    opacity effects when hover buttons*/
+    opacity: 0.9;
+}
+.btn:focus {
+    outline: none;
+}

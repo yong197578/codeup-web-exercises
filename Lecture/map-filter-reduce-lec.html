@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    const users = [
+        {
+            name: 'zach',
+            email: 'zach@codeup.com',
+            languages: ['javascript', 'bash']
+        },
+        {
+            name: 'ryan',
+            email: 'ryan@codeup.com',
+            languages: ['clojure', 'javascript']
+        },
+        {
+            name: 'luis',
+            email: 'luis@codeup.com',
+            languages: ['java', 'scala', 'php']
+        },
+        {
+            name: 'fernando',
+            email: 'fernando@codeup.com',
+            languages: ['java', 'php', 'sql']
+        },
+        {
+            name: 'justin',
+            email: 'justin@codeup.com',
+            languages: ['html', 'css', 'javascript', 'php']
+        }
+    ];
+    // Map
+
+    // Create a collection of card elements based on an array of user objects.
+
+    // 1. declare new variable to store new array
+    // 2. reference the users array
+    let usersHTML = users.map(user => {
+        return `
+        <div class="card">
+        <div class="card-title">
+        <h1>Instructor</h1>
+        </div>
+        <div class="card-body">
+        <h4>${user.name}</h4>
+        <p>${user.email}</p>
+        <ul>
+        <li>${user.languages.join(", ")}</li>
+        </ul></div></div>`
+    })
+
+
+    document.getElementsByTagName("body")[0].innerHTML = usersHTML.join("");
+
+    // Filter
+
+    const playlist = [
+        {
+            title: "Details",
+            artist: "Jonathan McReynolds",
+            genre: "gospel"
+        },
+        {
+            title: "Fergalicious",
+            artist: "Fergie",
+            genre: "pop"
+        },
+        {
+            title: "Barbie Girl",
+            artist: "Aqua",
+            genre: "pop"
+        },
+        {
+            title: "World on a string",
+            artist: "Frank Sinatra",
+            genre: "jazz"
+        },
+        {
+            title: "Yonaguni",
+            artist: "Bad Bunny",
+            genre: "latin"
+        },
+        {
+            title: "Respect",
+            artist: "Aretha Franklin",
+            genre: "r&b/soul"
+        },
+        {
+            title: "I Wanna Rock",
+            artist: "Twisted Sister",
+            genre: "rock n' roll"
+        },
+        {
+            title: "Shirt",
+            artist: "SZA",
+            genre: "r&b/soul"
+        },
+        {
+            title: "A Whole New World",
+            artist: "Aladdin",
+            genre: "pop"
+        }
+    ];
+
+    function sortGenre(genre) {
+        // return playlist.filter(song => song.genre === genre);
+        return playlist.filter(function(song) {
+            return song.genre === genre;
+        })
+    }
+
+    function filterTitle(title) {
+        return playlist.filter(song => song.title.toLowerCase().includes(title.toLowerCase()))
+    }
+
+    // console.log(sortGenre("r&b/soul"));
+    // console.log(filterTitle("world"))
+
+    // Reduce
+
+    const numbers = [1, 2, 3, 4, 5];
+
+    const sum = numbers.reduce((accumulation, currentNumber) => {
+        // console.log("Accumulation Value: ", accumulation);
+        // console.log("Current Number", currentNumber)
+        return accumulation + currentNumber;
+    }, 0);
+
+    console.log(sum);
+
+    function countWords(sentence) {
+        const words = sentence.split(' '); // transform a sentence into an array of words
+        // wordCounts = {}, word = individual element of words array established above
+        const wordCountObject = words.reduce((wordCounts, word) => {
+            if (typeof wordCounts[word] === 'undefined') {
+                // if the word is not yet present in our object, set it's value to 1
+                wordCounts[word] = 1;
+                // console.log(wordCounts)
+
+            } else {
+                // otherwise increment the existing count
+                wordCounts[word] += 1;
+                // console.log(wordCounts)
+            }
+            return wordCounts;
+        }, {}); // start with an empty object
+        return wordCountObject;
+    }
+
+    countWords('Mary had a little lamb little lamb little lamb');
+    // {Mary: 1, had: 1, a: 1, little: 3, lamb: 3}
+
+    $.ajax({
+        url: 'https://randomuser.me/api/',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data.results);
+            // newUserObj is the new obj we construct to parse out the information we need
+            // user is the individual element in the array
+            data.results.reduce((newUserObj, user) => {
+                // parse out the name, username, password, and picture
+
+                newUserObj.name = user.name.first + " " + user.name.last;
+                newUserObj.username = user.login.username;
+                newUserObj.password = user.login.password;
+                newUserObj.avatar = user.picture.thumbnail;
+
+                console.log(newUserObj);
+            }, {})
+        }
+    });
+</script>
+</body>
+</html>
