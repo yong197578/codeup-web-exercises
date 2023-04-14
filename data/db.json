@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "my first blog post",
+      "author": "Codeup"
+    },
+    {
+      "id": 3,
+      "title": "my second blog post",
+      "author": "Codeup"
+    },
+    {
+      "id": 4
+    },
+    {
+      "title": null,
+      "author": null,
+      "id": 5
+    },
+    {
+      "title": "a",
+      "author": "a",
+      "id": 6
+    },
+    {
+      "title": null,
+      "author": null,
+      "id": 7
+    }
+  ]
+}
