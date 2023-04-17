@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    /*add image before write js*/
+    /*background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');*/
+    /*background-position is x and y axis center*/
+    background-position: center center;
+    /*cover - whole image*/
+    background-size: cover;
+    /*slide transition effect*/
+    transition: 0.4s ease;
+}
+
+body::before {
+    /*not adding content*/
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /*black and 0.7 transparency*/
+    background-color: rgba(0,0,0, 0.7);
+    /*Overlapping elements with a larger z-index cover those with a smaller one. Negative values to lower the priority */
+    z-index: -1;
+}
+
+.slider-container {
+    /*two shadows 0 3px blur 6px black 0.16 and 0.23 alpha value*/
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    height: 70vh;
+    width: 70vw;
+    position: relative;
+    overflow: hidden;
+}
+.slide {
+    opacity: 0;
+    /*slide container 100vh and 100vw*/
+    height: 100vh;
+    width: 100vw;
+    /*background image position*/
+    background-position: center center;
+    background-size: cover;
+    position: absolute;
+    /*move up little so match with background image*/
+    top: -15vh;
+    left: -15vw;
+    transition: 0.4s ease;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.arrow {
+    /*button arrow will be fixed and transparent*/
+    position: fixed;
+    /*set z-index to 100 to see arrows */
+    /*z-index: 100;*/
+    background-color: transparent;
+    font-size: 30px;
+    border: 2px solid orange;
+    /*set to middle left*/
+    top: 50%;
+    color: #fff;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.arrow:focus {
+    outline: 0;
+}
+.left-arrow {
+    left: calc(15vw - 65px);
+}
+
+.right-arrow {
+    right: calc(15vw - 65px);
+}
