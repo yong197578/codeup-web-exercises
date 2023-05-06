@@ -1,6 +1,8 @@
 const range = document.getElementById('range')
 
 range.addEventListener('input', (e) =>{
+
+    //set value as number
     const value = +e.target.value
     const label = e.target.nextElementSibling
 
