@@ -42,14 +42,16 @@ const c_text = document.getElementById('c_text')
 const d_text = document.getElementById('d_text')
 const submitBtn = document.getElementById('submit')
 
+//variables to keep track of the current quiz question and user's score
 let currentQuiz = 0
 let score = 0
 
 loadQuiz()
 
 function loadQuiz() {
+    //function to de select answers when load page
     deselectAnswers()
-
+    //set variable currentQuizData to get data for current quiz question from quizData
     const currentQuizData = quizData[currentQuiz]
 
     questionEl.innerText = currentQuizData.question
@@ -60,13 +62,15 @@ function loadQuiz() {
 }
 
 function deselectAnswers() {
+    //lops through all the answer elements and unchecked any that are current checked
     answerEls.forEach(answerEl => answerEl.checked = false)
 }
 
 function getSelected() {
     let answer
-
+    //loop through all answers and check if any of them are selected.
     answerEls.forEach(answerEl => {
+        //if checked returns the id of selected answer element
         if(answerEl.checked) {
             answer = answerEl.id
         }
@@ -76,17 +80,20 @@ function getSelected() {
 }
 
 submitBtn.addEventListener('click', () => {
+    //call getSelected() function to get the answer selected by user
     const answer = getSelected()
-
+    //if answer is true
     if(answer) {
+        //if selected answer is correct, the score variable is incremented by 1
         if(answer === quizData[currentQuiz].correct) {
             score++
         }
-
+        //increment currentQuiz variable
         currentQuiz++
-
+        //if currentQuiz is less quizData.length(4) then loadQuiz()function is called to load the next question
         if(currentQuiz < quizData.length) {
             loadQuiz()
+            //when user completed  questions set innerHTML to display user's score
         } else {
             quiz.innerHTML = `
                 <h2>You answered ${score}/${quizData.length} questions correctly</h2>

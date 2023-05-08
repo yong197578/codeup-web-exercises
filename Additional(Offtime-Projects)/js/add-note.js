@@ -9,6 +9,7 @@ if(notes) {
 
 addBtn.addEventListener('click', () => addNewNote())
 
+//function to create new note
 function addNewNote(text = '') {
     const note = document.createElement('div')
     note.classList.add('note')
@@ -27,28 +28,30 @@ function addNewNote(text = '') {
     const main = note.querySelector('.main')
     const textArea = note.querySelector('textarea')
 
+    //set textArea value set to text
     textArea.value = text
+    //if the text is not empty, the main section is displayed otherwise it's hidden
     main.innerHTML = marked(text)
-
+    //delete button to remove note and update
     deleteBtn.addEventListener('click', () => {
         note.remove()
-
         updateLS()
     })
-
+    //when edit button clicked toggle to visible and hidden states using two toggle classList
     editBtn.addEventListener('click', () => {
         main.classList.toggle('hidden')
         textArea.classList.toggle('hidden')
     })
-
+    //when textarea eleemtn input event is fired
     textArea.addEventListener('input', (e) => {
+        //const textAreaValue =e.target.value;
         const { value } = e.target
-
+        //mark function is used to convert marked value(text) to HTML
         main.innerHTML = marked(value)
-
+        //update local storage with new note content
         updateLS()
     })
-
+    //note element is appended to doc body
     document.body.appendChild(note)
 }
 
